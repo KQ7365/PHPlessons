@@ -1,40 +1,29 @@
-<?php 
-$title = "Learn PHP from scratch";
-$heading = "Welcome To The Course";
-$body = "In this course, you will learn the fundamentals of the PHP language";
-$firstName = "John";
-$lastName = "Doe";
-$fullName = $firstName . " " . $lastName;
-?>
+<?php
 
+$title = "Introduction to PHP";
+$author = "John Doe";
+$body = "  PHP (Hypertext Preprocessor) is a widely used server-side scripting
+language that has revolutionized web development. With its simplicity,
+flexibility, and vast community support, PHP has become the backbone of
+countless dynamic websites and web applications.";
+$pageTitle = $title . " " . "| Brad's PHP Blog";
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"><?= $title ?></script>
-    <title>Learn PHP From Scratch</title>
-</head>
-
-<body class="bg-gray-100">
-    <header class="bg-blue-500 text-white p-4">
-        <div class="container mx-auto">
-            <h1 class="text-3xl font-semibold"><?= "Learn PHP From Scratch"; ?></h1>
-        </div>
-    </header>
-    <div class="container mx-auto p-4 mt-4">
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-semibold mb-4"><?= $heading ?></h2>
-            <?= $body ?>
-            <h1>
-                <?= 'Hello, my name is ' . $fullName . '<br />' ?>
-                <?= "Hello, my name is $fullName" ?>
-                <?= "Hello, my name is \"John\"" ?>
-            </h1>
-        </div>
-    </div>
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><?= $pageTitle ?></title>
+  </head>
+  <body>
+    <main>
+      <h1>Introduction to PHP</h1>
+      <p>By: <?= $author ?></p>
+      <p>
+      <?= $body ?>
+      </p>
+    </main>
+  </body>
 </html>
