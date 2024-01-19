@@ -1,52 +1,59 @@
 <?php
 $output = null;
-
-$user = [
-    "name" => "John",
-    "email" => "john@gmail",
-    "password" => "123456",
-    "hobbies" => ["Tennis", "Video Games"]
+$fruits = [
+  ["Apple", "Red"],
+  ["Orange", "Orange"],
+  ["Banana", "Yellow"]
 ];
-// var_dump($user);
+//This gets Apple
+$output = $fruits[0][0];
+//This gets "Red"
+$output = $fruits[0][1];
+//Add a fruit
+$fruits[] = ["Grapes", "Purple"];
 
-//how to access elements in array
-$output = $user["name"];
-$output = $user["email"];
+//realistic array
+$users = [
+  ["name" => "John", "email" => "john@gmail", "password" => "123456"],
+  ["name" => "Mary", "email" => "mary@gmail", "password" => "123456"],
+  ["name" => "Ken", "email" => "ken@gmail", "password" => "123456"]
+];
+//access data
+$output = $users[1]["email"];
 
-$output = $user["hobbies"][0];
+//add user
+$users[] = ["name" => "Mike", "email" => "mike@gmail", "password" => "123456"];
 
-//Add key to array
-$user["address"] = "123 Main St";
-//Unset a key value pair
-unset($user["address"]);
+//count users
+$output = count($users);
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>PHP From Scratch</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>PHP From Scratch</title>
 </head>
 
 <body class="bg-gray-100">
-    <header class="bg-blue-500 text-white p-4">
-        <div class="container mx-auto">
-            <h1 class="text-3xl font-semibold">PHP From Scratch</h1>
-        </div>
-    </header>
-    <div class="container mx-auto p-4 mt-4">
-        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
-            <!-- Output -->
-            <p class="text-xl"><?= $output ?></p>
-            <h2 class="text-xl font-semibold my-4">User Array: </h2>
-            <p><pre>
-                <?php print_r($user) ?>
-            </pre></p>
-        </div>
+  <header class="bg-blue-500 text-white p-4">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-semibold">PHP From Scratch</h1>
     </div>
+  </header>
+  <div class="container mx-auto p-4 mt-4">
+    <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+      <!-- Output -->
+      <p class="text-xl"><?= $output ?></p>
+      <p><pre>
+        <?php print_r($users) ?>
+      </pre></p>
+    </div>
+  </div>
 </body>
 
 </html>
