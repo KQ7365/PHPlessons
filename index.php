@@ -1,36 +1,39 @@
 <?php
-$age = 30;
-// If statement
-// if (condition) {
-//     code to be executed if the condition is TRUE!!
-// }
-if ($age >= 21) {
-    echo "You are old enough to drink in the US";
-}
-// If-Else
-if ($age >= 21) {
-    echo "You are old enough to drink in the US";
-} else {
-    echo "You are NOT old enough to drink in the US";
-}
-// Nested if statement
-if ($age >= 21) {
-    echo "You are old enough to drink in the US";
-} else {
-    if ($age >= 18) {
-        echo "You are old enough to vote in the US";
-    }
-    else {
-        echo "You are NOT old enough to drink or vote in the Us";
-    }
-}
-// If-Else-If
 
-if ($age >= 21) {
-    echo "You are old enough to drink and vote in the US";
-} else  if ($age >= 18) {
-    echo "You are old enough to vote in the US";
-} else {
-    echo "You cant vote or drink in the US";
-}
+$isLoggedIn = false;
+$name = "kevin";
 
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>PHP From Scratch</title>
+</head>
+
+<body class="bg-gray-100">
+  <header class="bg-blue-500 text-white p-4">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-semibold">PHP From Scratch</h1>
+    </div>
+  </header>
+  <div class="container mx-auto p-4 mt-4">
+    <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+      <!-- Output -->
+      <?php if($isLoggedIn && $name) : ?>
+        <h1 class="text-3xl">Welcome <?= $name ?></h1>
+      <?php elseif($isLoggedIn) : ?>
+        <h1 class="text-3xl">Welcome</h1>
+      <?php else : ?>
+        <h1 class="text-3xl">Please log in</h1>
+
+        <?php endif; ?>
+    </div>
+  </div>
+</body>
+
+</html> 
