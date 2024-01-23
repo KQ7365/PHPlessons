@@ -1,19 +1,67 @@
 <?php
-/*
-Fizzbuzz Challenge:
-Write a program that prints the numbers from 1 to 100. But for multiples of three print “Fizz” instead of the number and for the multiples of five print “Buzz”. For numbers which are multiples of both three and five print “FizzBuzz”. Remember, you can use the modulus operator to check if a number is divisible by another number.
-*/
 
-for($i = 1; $i <= 100; $i++) {
-    
-    if($i % 3 === 0 && $i % 5 === 0) {
-       echo "FizzBuzz";
-    } elseif ($i % 3 === 0) {
-        echo "Fizz";
-    } elseif ($i % 5 === 0) {
-        echo "Buzz";
-    } else {
-        echo $i;
+  $dayOfWeek = date('l');
+
+
+  switch($dayOfWeek) {
+    case "Monday":
+      $message = "Monday Blues";
+      $color = "blue";
+      break;
+      case "Tuesday":
+        $message = "At least its not monday";
+        $color = "green";
+        break;
+        case "Wednesday":
+          $message = "Hump day";
+          $color = "orange";
+          break;
+          case "Thursday":
+            $message = "One more day until friday";
+            $color = "red";
+            break;
+            case "Friday":
+              $message = "TGIF";
+              $color = "purple";
+              break;
+              case "Saturday":
+                $message = "Have a nice weekend";
+                $color = "magenta";
+                break;
+                case "Sunday":
+                  $message = "Have a nice weekend";
+                  $color = "magenta";
+                  break;
+
+  }
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Day Is It?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: <?= $color ?>;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    echo "<br/>";
-}
+  </style>
+</head>
+
+<body>
+  <h1><?=strtoupper($message)  ?></h1>
+</body>
+
+</html>
