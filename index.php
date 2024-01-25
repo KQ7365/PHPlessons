@@ -6,7 +6,7 @@ $listings = [
     'description' => 'We are seeking a skilled software engineer to develop high-quality software solutions.',
     'salary' => 80000,
     'location' => 'San Francisco',
-    'tags' => ['Software Development', 'Java', 'Python', 'SEO']
+    'tags' => ['Software Development', 'Java', 'Python']
   ],
   [
     'id' => 2,
@@ -42,10 +42,10 @@ $listings = [
   ],
 ];
 
-function formatSalary($salary)
-{
-  return '$' . number_format($salary);
-}
+//arrow function below
+
+$formatSalary = fn ($salary) => '$' . number_format($salary, 2);
+
 
 function highlightTags($tags, $searchTerm)
 {
@@ -53,18 +53,21 @@ function highlightTags($tags, $searchTerm)
   return str_replace($searchTerm, "<span class='bg-yellow-200'>$searchTerm</span>", $tagsArray);
 }
 
+//now putting $formatSalary since it's in global scope and this function needs access to it on line 70 (THIS IS A CALLBACK)
+function calculateAverageSalary($listings, $formatSalary)
+{
+  $totalSalary = 0;
+  $count = count($listings);
 
+  // Calculate the total salary
+  foreach ($listings as $job) {
+    $totalSalary += $job['salary'];
+  }
 
-  function calculateAverageSalary($listings) {
-    $totalSalary = 0;
+  // Calculate the average salary
+  $averageSalary = ($count > 0) ? $totalSalary / $count : 0;
 
-    foreach ($listings as $salaries) {
-        $totalSalary += $salaries['salary'];
-    }
-
-    $averageSalary = $totalSalary / count($listings);
-
-    return '$' . number_format($averageSalary);
+  return $formatSalary($averageSalary);
 }
 ?>
 
@@ -87,8 +90,7 @@ function highlightTags($tags, $searchTerm)
   </header>
   <div class="container mx-auto p-4 mt-4">
     <div class="bg-green-100 rounded-lg shadow-md p-6 my-6">
-      <h2 class="text-2xl font-semibold mb-4">Average Salary:</h2>
-      <p> <?=    calculateAverageSalary($listings)     ?> </p>
+      <h2 class="text-2xl font-semibold mb-4">Average Salary: <?= calculateAverageSalary($listings, $formatSalary)  ?></h2>
     </div>
     <!-- Output -->
     <?php foreach ($listings as $index => $job) : ?>
@@ -99,7 +101,7 @@ function highlightTags($tags, $searchTerm)
             <p class="text-gray-700 text-lg mt-2"><?= $job['description'] ?></p>
             <ul class="mt-4">
               <li class="mb-2">
-                <strong>Salary:</strong> <?= formatSalary($job['salary']); ?>
+                <strong>Salary:</strong> <?= $formatSalary($job['salary']); ?>
               </li>
               <li class="mb-2">
                 <strong>Location:</strong> <?= $job['location'] ?>
@@ -108,7 +110,7 @@ function highlightTags($tags, $searchTerm)
               </li>
               <?php if (!empty($job['tags'])) : ?>
                 <li class="mb-2">
-                  <strong>Tags:</strong> <?= highlightTags($job['tags'], 'SEO') ?>
+                  <strong>Tags:</strong> <?= highlightTags($job['tags'], 'Development') ?>
                 </li>
               <?php endif; ?>
             </ul>
