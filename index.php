@@ -1,53 +1,30 @@
 <?php
-/*
-  Challenge 1: Fahrenheit to Celsius
-  Create a function called `fahrenheitToCelsius` that takes a Fahrenheit temperature as an argument. Return the temperature converted to Celsius.
 
-  The formula to convert Fahrenheit to Celsius is: Celsius = (Fahrenheit - 32) * 5/9
-*/
 
-function fahrenheitToCelsius($temp) {
-  $convertToCelsius = ($temp - 32) * 5/9;
-  return round($convertToCelsius);
-}
-echo fahrenheitToCelsius(100);
-echo '<br>';
+//properties
+class User {
+    //this is creating the keys of an object
+    public $name;
+    public $email;
 
-/*
-  Challenge 2: Print names in uppercase
-  Create a function called `printNamesToUpperCase` that takes an array of names as an argument. The function should loop through the array and print each name to the screen in uppercase letters.
-*/
-
-$names = ["Kevin", "Karlee", "Lucas", "Vincent"];
-
-function printNamesToUpperCase($names) {
-  $convertArrayToString = implode(", ", $names);
-  return strtoupper($convertArrayToString);
-}
-
-echo printNamesToUpperCase($names);
-echo '<br>';
-
-/*
-  Challenge 3: Find the longest word
-  1. Create a function called `findLongestWord` that takes a sentence as an argument.
-  2. The function should return the longest word in the sentence.
-  3. The output should look like this:
-*/
-$sentence = "This is a sentences so we may find the longest word in it";
-
-function findLongestWord($sentence) {
-  $words = explode(' ', $sentence);
-
-  $longestWord = "";
-  foreach($words as $word){
-    if(strlen($word) > strlen($longestWord)){
-      $longestWord = $word;
+    //constructor -- allows us to shorthand making an object (see below)
+    public function __construct($name, $email){
+       $this->name = $name;
+       $this->email = $email;
     }
-  }
-  return $longestWord;
+
+    //Methods--this is now a function that runs inside the class
+    public function login(){
+        echo $this->name ." logged in";
+    }
 }
 
-$longestWordInSentence = findLongestWord($sentence);
+//now instantiate/create new user object
+$user1 = new User("John Doe", "john@gmail.com");
 
-echo $longestWordInSentence;
+
+
+//notice the arrow syntax we use for this--we are now accessing the method inside the Class
+$user1->login();
+
+$user2 = new User("Jane Doe", "jane@gmail.com");
