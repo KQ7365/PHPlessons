@@ -1,40 +1,30 @@
 <?php
 
-class User
-{
-  public $name;
-  public $email;
-  protected $status = 'active';
+class Article {
 
-  public function __construct($name, $email)
-  {
-    $this->name = $name;
-    $this->email = $email;
-  }
+    private $published = false;
+    public $title;
+    public $content;
 
-  public function login()
-  {
-    echo $this->name . ' logged in <br>';
-  }
+    public function __construct($title, $content) {
+
+        $this->title = $title;
+        $this->content = $content;
+    }
+            //setter
+    public function publish() {
+        $this->published = true;
+    }
+        //getter
+    public function isPublished() {
+       return $this->published;
+    }
+  
 }
 
-class Admin extends User {
-  public $level;
+$firstTitle = new Article("Title 1", "Title 1 content");
+$firstTitle->publish();
+$secondTitle = new Article("Title 2", "Title 2 contents");
 
-  public function __construct($name, $email, $level){
-    $this->level = $level;
-    parent::__construct ($name, $email);
-  }
-  public function getStatus() {
-    echo $this->status;
-  }
-
-  public function login() {
-    echo "Admin " . $this->name . " logged in <br>";
-  }
-}
-
-$admin1 = new Admin("Tom Smith", "tom@gmail.com", 5);
-
-$admin1->getStatus();
-$admin1->login();
+var_dump($secondTitle);
+var_dump($firstTitle);
