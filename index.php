@@ -1,60 +1,86 @@
 <?php
 
-abstract class Shape {
+interface ContentInterface {
+  public function display();
+  public function edit();
+}
 
-    protected $name;
+class Article implements ContentInterface {
+  private $title;
+  private $content;
 
-    //Abstract Method
-    abstract public function calculateArea();
+  public function __construct($title, $content)
+  {
+    $this->title = $title;
+    $this->content = $content;
+  }
 
-    public function __construct($name) {
-        $this->name = $name;
-    }
+  public function display() {
+    echo "<h2>{$this->title}</h2>";
+    echo "<h2>{$this->content}</h2>";
+  }
 
-    //Concrete method ((ALSO, we can use this method anywhere below))
-    public function getName(){
-        return $this->name;
-    } 
+  public function edit() {
+    echo "Editing the article '{$this->title}'";
+  }
+}
+
+class Video implements ContentInterface {
+  private $title;
+  private $url;
+
+
+  public function __construct($title, $url)
+  {
+    $this->title = $title;
+    $this->url = $url;
+  }
+
+  public function display() {
+    echo "<h2>{$this->title}</h2>";
+    echo "<iframe src='{$this->url}'></iframe>";
+  }
+
+  public function edit() {
+    echo "Editing the video '{$this->title}'";
+  }
+
 
 }
 
-class Circle extends Shape {
+$article = new Article("Introduction to PHP", "PHP is a versatile scripting language");
+$video = new Video("PHP for beginners", "www.youtube.com");
 
-        //if you extend class that has abstract method, you have to implement that method
 
-        private $radius;
+?>
 
-        public function __construct($name, $radius)
-        {
-            parent::__construct($name);
-            $this->radius = $radius;
-        }
 
-        public function calculateArea()
-        {
-            return pi() * pow($this->radius, 2);
-        }
-}
+<!DOCTYPE html>
+<html lang="en">
 
-class Rectangle extends Shape {
-    private $width;
-    private $height;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>PHP From Scratch</title>
+</head>
 
-    public function __construct($name, $height, $width)
-    {
-        parent::__construct($name);
-        $this->height = $height;
-        $this->width = $width;
-    }
+<body class="bg-gray-100">
+  <header class="bg-blue-500 text-white p-4">
+    <div class="container mx-auto">
+      <h1 class="text-3xl font-semibold">PHP From Scratch</h1>
+    </div>
+  </header>
+  <div class="container mx-auto p-4 mt-4">
+    <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+      <?= $article->display() ?>
+    </div>
+  </div>
+  <div class="container mx-auto p-4 mt-4">
+    <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+      <?= $video->display() ?>
+    </div>
+  </div>
+</body>
 
-    public function calculateArea()
-    {
-        return $this->width * $this->height;
-    }
-}
-
-$circle = new Circle("Circle", 5);
-$rectangle = new Rectangle("Reactangle", 4, 6);
-
-echo $circle->getName() . " Area: " . $circle->calculateArea() . "<br>";
-echo $rectangle->getName() . " Area: " . $rectangle->calculateArea() . "<br>";
+</html>
