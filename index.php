@@ -2,10 +2,9 @@
 
 class User
 {
-  // Properties
   public $name;
   public $email;
-  protected $status = "active";
+  protected $status = 'active';
 
   public function __construct($name, $email)
   {
@@ -13,34 +12,29 @@ class User
     $this->email = $email;
   }
 
-  // Methods
   public function login()
   {
     echo $this->name . ' logged in <br>';
   }
+}
 
-  //Getter
-  public function getStatus(){
+class Admin extends User {
+  public $level;
+
+  public function __construct($name, $email, $level){
+    $this->level = $level;
+    parent::__construct ($name, $email);
+  }
+  public function getStatus() {
     echo $this->status;
   }
 
-  //Setter
-  public function setStatus($status){
-    $this->status = $status;
+  public function login() {
+    echo "Admin " . $this->name . " logged in <br>";
   }
 }
 
-// Instantiate a new object
-$user1 = new User('John Doe', 'john@gmail.com');
+$admin1 = new Admin("Tom Smith", "tom@gmail.com", 5);
 
-$user1->login();
-
-$user2 = new User('Jane Doe', 'jane@gmail.com');
-
-$user2->login();
-
-$user2->setStatus("inactive");
-
-$user2->getStatus();
-
-$user1->status;
+$admin1->getStatus();
+$admin1->login();
