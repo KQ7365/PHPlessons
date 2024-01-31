@@ -1,107 +1,46 @@
 <?php
-// Common server variables:
-$requestMethod = $_SERVER['REQUEST_METHOD'] ?? ""; //determines what type of request is being made, POST, PUT, etc. Importsant
-$serverProtocol = $_SERVER['SERVER_PROTOCOL'] ?? "";
-$serverName = $_SERVER['SERVER_NAME'] ?? "";
-$serverPort = $_SERVER['SERVER_PORT'] ?? "";
-$serverSoftware = $_SERVER['SERVER_SOFTWARE'] ?? "";
-$serverAdmin = $_SERVER['SERVER_ADMIN'] ?? ""; //WOULD STORE EMAIL OF ADMIN
-$documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? "";//USED ALOT!
-$scriptFilename = $_SERVER['SCRIPT_FILENAME'] ?? "";
-$scriptName = $_SERVER['SCRIPT_NAME'] ?? "";
-$phpSelf = $_SERVER['PHP_SELF'] ?? "";
-$remoteAddr = $_SERVER['REMOTE_ADDR'] ?? "";//STORES IP OF CLIENT MAKING REQUEST
-$connection = $_SERVER['HTTP_CONNECTION'] ?? "";
-$host = $_SERVER['HTTP_HOST'] ?? "";
-$referer = $_SERVER['HTTP_REFERER'] ?? "";//WOULD STORE LINK OR URL IF CLICKING 
-$userAgent = $_SERVER['HTTP_USER_AGENT'] ?? "";//STORES WHAT THE USER'S OS IS
-$queryString = $_SERVER['QUERY_STRING'] ?? "";//WILL GIVE QUERY STRING IF YOU HAVE ONE
-$requestUri = $_SERVER['REQUEST_URI'] ?? "";//SHOWS THE ENTIRE URL OF THE REQUEST, INCLUDING QUERY STRING IF YOU HAVE ONE
 
+putenv("DB_HOST=localhost");
+putenv("DB_USER=root");
+
+$host = getenv("DB_HOST");
+$user = getenv("DB_USER");
+
+$foo = "Foo Global";
+
+function test(){
+  $foo = "Foo Local";
+  echo "Global Variable: " . $GLOBALS["foo"] . "<br>";
+  echo "Local Variable: " . $foo;
+}
+$foo = "Hello";
+
+test();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Server Information</title>
+  <title>System Information</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100">
   <div class="container mx-auto p-8 bg-white shadow-md mt-10 rounded-lg">
-    <h1 class="text-3xl font-semibold mb-4 text-center">Server Information</h1>
+    <h1 class="text-3xl font-semibold mb-4 text-center">System Information</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
       <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Request Method:</strong>
-        <?= $requestMethod ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Server Protocol:</strong>
-        <?= $serverProtocol ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Server Name:</strong>
-        <?= $serverName ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Server Port:</strong>
-        <?= $serverPort ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Server Software:</strong>
-        <?= $serverSoftware ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Server Admin:</strong>
-        <?= $serverAdmin ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Document Root:</strong>
-        <?= $documentRoot ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Script Filename:</strong>
-        <?= $scriptFilename ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Script Name:</strong>
-        <?= $scriptName ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">PHP Self:</strong>
-        <?= $phpSelf ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Remote Addr:</strong>
-        <?= $remoteAddr ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Connection:</strong>
-        <?= $connection ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Host:</strong>
+        <strong class="block mb-2">DB Host:</strong>
         <?= $host ?>
       </div>
       <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Referer:</strong>
-        <?= $referer ?>
+        <strong class="block mb-2">DB User:</strong>
+        <?= $user ?>
       </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">User Agent:</strong>
-        <?= $userAgent ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Query String:</strong>
-        <?= $queryString ?>
-      </div>
-      <div class="bg-gray-200 p-4 rounded-lg">
-        <strong class="block mb-2">Request Uri:</strong>
-        <?= $requestUri ?>
-      </div>
+
     </div>
 </body>
 
