@@ -1,22 +1,22 @@
 <?php
 // Common server variables:
-$requestMethod = '';
-$serverProtocol = '';
-$serverName = '';
-$serverPort = '';
-$serverSoftware = '';
-$serverAdmin = '';
-$documentRoot = '';
-$scriptFilename = '';
-$scriptName = '';
-$phpSelf = '';
-$remoteAddr = '';
-$connection = '';
-$host = '';
-$referer = '';
-$userAgent = '';
-$queryString = '';
-$requestUri = '';
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? ""; //determines what type of request is being made, POST, PUT, etc. Importsant
+$serverProtocol = $_SERVER['SERVER_PROTOCOL'] ?? "";
+$serverName = $_SERVER['SERVER_NAME'] ?? "";
+$serverPort = $_SERVER['SERVER_PORT'] ?? "";
+$serverSoftware = $_SERVER['SERVER_SOFTWARE'] ?? "";
+$serverAdmin = $_SERVER['SERVER_ADMIN'] ?? ""; //WOULD STORE EMAIL OF ADMIN
+$documentRoot = $_SERVER['DOCUMENT_ROOT'] ?? "";//USED ALOT!
+$scriptFilename = $_SERVER['SCRIPT_FILENAME'] ?? "";
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? "";
+$phpSelf = $_SERVER['PHP_SELF'] ?? "";
+$remoteAddr = $_SERVER['REMOTE_ADDR'] ?? "";//STORES IP OF CLIENT MAKING REQUEST
+$connection = $_SERVER['HTTP_CONNECTION'] ?? "";
+$host = $_SERVER['HTTP_HOST'] ?? "";
+$referer = $_SERVER['HTTP_REFERER'] ?? "";//WOULD STORE LINK OR URL IF CLICKING 
+$userAgent = $_SERVER['HTTP_USER_AGENT'] ?? "";//STORES WHAT THE USER'S OS IS
+$queryString = $_SERVER['QUERY_STRING'] ?? "";//WILL GIVE QUERY STRING IF YOU HAVE ONE
+$requestUri = $_SERVER['REQUEST_URI'] ?? "";//SHOWS THE ENTIRE URL OF THE REQUEST, INCLUDING QUERY STRING IF YOU HAVE ONE
 
 ?>
 
