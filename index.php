@@ -21,13 +21,25 @@ if($file["error"] === UPLOAD_ERR_OK) {
   //create File name
   $fileName = uniqid() . "-" . $file["name"];
 
-  //upload file
+  //check file type
+  $allowedExtensions = ["jpg", "jpeg", "png"];
+  $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+  //make sure extension is in array
+if(in_array($fileExtension, $allowedExtensions)) {
+  //Upload Filed
   if(move_uploaded_file($file["tmp_name"], $uploadDir . $fileName)) {
     echo "File Uploaded!";
   }else {
     echo "File upload error:" . $file["error"];
   }
+} else {
+  echo "invalid file type";
 }
+
+}
+
+
 
 
   $submitted = true;
