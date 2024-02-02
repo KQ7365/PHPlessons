@@ -1,48 +1,56 @@
 <?php
 $title = '';
 $description = '';
-$submitted = false; 
+$submitted = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
   $title = htmlspecialchars($_POST['title'] ?? '');
   $description = htmlspecialchars($_POST['description'] ?? '');
 
- 
-$file = $_FILES["logo"];
-
-if($file["error"] === UPLOAD_ERR_OK) {
-  //Specify where to upload
-  $uploadDir = "uploads/";
-  //now lets do a check if directory exists and if not create
-  if(!is_dir($uploadDir)){
-    mkdir($uploadDir, 0755, true);
+  if(empty($title)) {
+    $messages[] = ["text" => "Title is required", "color" => "text-red-500"];
+    $submitted = false;
   }
 
-  //create File name
-  $fileName = uniqid() . "-" . $file["name"];
-
-  //check file type
-  $allowedExtensions = ["jpg", "jpeg", "png"];
-  $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-
-  //make sure extension is in array
-if(in_array($fileExtension, $allowedExtensions)) {
-  //Upload Filed
-  if(move_uploaded_file($file["tmp_name"], $uploadDir . $fileName)) {
-    echo "File Uploaded!";
-  }else {
-    echo "File upload error:" . $file["error"];
+  if(empty($description)) {
+    $messages[] = ["text" => "Description is required", "color" => "text-red-500"];
+    $submitted = false;
   }
-} else {
-  echo "invalid file type";
-}
 
-}
+  $file = $_FILES['logo'];
+
+  if ($file['error'] === UPLOAD_ERR_OK) {
+    // Specify where to upload
+    $uploadDir = 'uploads/';
+
+    // Check and create dir
+    if (!is_dir($uploadDir)) {
+      mkdir($uploadDir, 0755, true);
+    }
+
+    // Create file name
+    $filename = uniqid() . '-' . $file['name'];
+
+    // Check file type
+    $allowedExtensions = ['jpg', 'jpeg', 'png'];
+    $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+    // Make sure extension is in array
+    if (in_array($fileExtension, $allowedExtensions)) {
+      // Upload file
+      if (move_uploaded_file($file['tmp_name'], $uploadDir .  $filename)) {
+        //using brackets below because WE ARE ADDING TO THE ARRAY
+        $messages[] = ["text" => "File uploaded successfully!", "color" => "text-green-500"];
+        $submitted = true;
+      } else {
+        $messages[] = ["text" => "File upload error", "color" => "text-red-500"];
+      }
+    } else {
+      $messages[] = ["text" => "File must be an image", "color" => "text-red-500"];
+    }
+  }
 
 
-
-
-  $submitted = true;
 }
 ?>
 
@@ -60,6 +68,11 @@ if(in_array($fileExtension, $allowedExtensions)) {
   <div class="flex justify-center items-center h-screen">
     <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
       <h1 class="text-2xl font-semibold mb-6">Create Job Listing</h1>
+      <?php foreach ($messages as $message) : ?>
+        <p class="<?= $message["color"] ?>">
+          <?= $message["text"] ?>
+      </p>
+        <?php endforeach; ?>
       <form method="post" enctype="multipart/form-data">
         <div class="mb-4">
           <label for="title" class="block text-gray-700 font-medium">Title</label>
