@@ -1,7 +1,19 @@
 <?php
-session_start();
 
+$username = $_COOKIE["username"] ?? "Guest";
 
-if(isset($_SESSION["name"])) {
-    echo $_SESSION["name"];
-}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>PHP Cookies</title>
+</head>
+<h1>Welconme <?= $username ?></h1>
+<body>
+
+  <a href="destroy.php">Delete cookie</a>
+</body>
+
+</html>

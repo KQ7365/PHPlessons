@@ -1,6 +1,20 @@
 <?php
-session_start();
+setcookie("username", "", time() - 3600, "/");
+?>
 
-unset($_SESSION["name"]);
+<!DOCTYPE html>
+<html lang="en">
 
-session_destroy();
+<head>
+  <title>PHP Cookies</title>
+</head>
+
+<body>
+
+  <p>
+    Your cookie has been deleted. <a href="page.php">Go to page.php</a>
+  </p>
+
+</body>
+
+</html>

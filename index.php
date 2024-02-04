@@ -1,6 +1,16 @@
 <?php
-session_start();
 
-$_SESSION["name"] = "John";
+setcookie("username", "jdoe", time() + 3600, "/");
+?>
+<!DOCTYPE html>
+<html lang="en">
 
-print_r($_SESSION);
+<head>
+  <title>PHP Cookies</title>
+</head>
+
+<body>
+  <p>Cookie set. <a href="page.php">Go to page.php</a></p>
+</body>
+
+</html>
