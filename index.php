@@ -1,24 +1,16 @@
 <?php
+require_once 'database.php';
 
-//if this was in different directories, may need to use folders or /
-require "database.php";
+// Prepare a SELECT statement
+$stmt = $pdo->prepare('SELECT * FROM posts');
 
-//Prepare a SELECT statement ((This starts a 3 step process to fetch all using PDO))
-//$pdo is accessible from database.php. Also, prepare is a method to make a query
-//step 1
-$stmt = $pdo->prepare("SELECT * FROM posts");
-//Execute statement
-//step 2
+// Execute the statement
 $stmt->execute();
 
-//Fetch results
-//step 3 ((The argument PDO::Fetch_Assoc will return data as object. But, we can do this in Database))
+// Fetch the results
 $posts = $stmt->fetchAll();
 
-//lets see the data
-// echo "<pre>";
-// var_dump($results);
-// echo "<pre>";
+// var_dump($posts);
 ?>
 
 <!DOCTYPE html>
@@ -38,16 +30,19 @@ $posts = $stmt->fetchAll();
     </div>
   </header>
   <div class="container mx-auto p-4 mt-4">
-    <?php foreach($posts as $post) : ?>
-    <div class="md my-4">
-      <div class="rounded-lg shadow-md">
-        <div class="p-4">
-          <h2 class="text-xl font-semibold"><?= $post["title"]?></h2>
-          <p class="text-gray-700 text-lg mt-2"><?= $post["body"]?></p>
+    <?php foreach ($posts as $post) : ?>
+      <div class="md my-4">
+        <div class="rounded-lg shadow-md">
+          <div class="p-4">
+            <h2 class="text-xl font-semibold"><a href="post.php?id=<?= $post['id'] ?>"><?= $post['title']; ?></h2>
+            <p class="text-gray-700 text-lg mt-2"><?= $post['body']; ?></p>
+          </div>
         </div>
       </div>
+    <?php endforeach; ?>
+    <div class="mt-6">
+      <a href="create.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">Create Post</a>
     </div>
-    <?php endforeach  ?>
   </div>
 </body>
 

@@ -16,8 +16,6 @@ try {
 
   // Set PDO to throw exceptions on error
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  //Fetch as Associative Array
-  $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   // If there is an error with the connection, catch it here
   echo "Connection failed: " . $e->getMessage();
