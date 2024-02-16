@@ -1,32 +1,32 @@
 <?php
-//DONT FORGET TO BRING IN DATABASE
 require_once 'database.php';
 
-//this statement is saying, if the method is = POST, AND, the form is submitted...then do this
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-  $title = htmlspecialchars($_POST['title']);
-  $body = htmlspecialchars($_POST['body']);
-  //above takes care of data being passed in the submit form
+$title = '';
+$body = '';
+$submitted = false; // Flag to check if the form has been submitted
 
-// now insert into database
-//keep in mind the same steps usually consist of this 1)Create query 2)prepare stmt 3)replacing any placeholders 4) execute
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+  $title = htmlspecialchars($_POST['title'] ?? '');
+  $body = htmlspecialchars($_POST['body'] ?? '');
 
-$sql = 'INSERT INTO posts (title, body) VALUES (:title, :body)';
+  // INSERT statement with placeholders for title and body
+  $sql = 'INSERT INTO posts (title, body) VALUES (:title, :body)';
 
-$stmt = $pdo->prepare($sql);
+  // Prepare the statement
+  $stmt = $pdo->prepare($sql);
 
-$params = [
-  'title' => $title,
-  'body' => $body
-];
+  // Params for prepared statement
+  $params = [
+    'title' => $title,
+    'body' => $body
+  ];
 
-$stmt->execute($params);
+  // Execute the statement
+  $stmt->execute($params);
 
-//now after it is executed, the following code will REDIRECT us to whatever page we want to go. ROUTES!!!
-header('Location: index.php');
-exit;
+  // Set the submitted flag to true
+  $submitted = true;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +40,7 @@ exit;
 </head>
 
 <body class="bg-gray-100">
-  <header class="bg-blue-500 text-white p-4">
+   <header class="bg-blue-500 text-white p-4">
     <div class="container mx-auto">
       <h1 class="text-3xl font-semibold">My Blog</h1>
     </div>
@@ -51,11 +51,11 @@ exit;
       <form method="post">
         <div class="mb-4">
           <label for="title" class="block text-gray-700 font-medium">Title</label>
-          <input type="text" id="title" name="title" placeholder="Enter post title" class="w-full px-4 py-2 border rounded focus:ring focus:ring-blue-300 focus:outline-none">
+          <input type="text" id="title" name="title" placeholder="Enter post title" class="w-full px-4 py-2 border rounded focus:ring focus:ring-blue-300 focus:outline-none" value="<?= $title ?>">
         </div>
         <div class="mb-6">
           <label for="body" class="block text-gray-700 font-medium">Body</label>
-          <textarea id="body" name="body" placeholder="Enter post body" class="w-full px-4 py-2 border rounded focus:ring focus:ring-blue-300 focus:outline-none"></textarea>
+          <textarea id="body" name="body" placeholder="Enter post body" class="w-full px-4 py-2 border rounded focus:ring focus:ring-blue-300 focus:outline-none"><?= $body ?></textarea>
         </div>
         <div class="flex items-center justify-between">
           <button type="submit" name="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">
@@ -64,6 +64,15 @@ exit;
           <a href="index.php" class="text-blue-500 hover:underline">Back to Posts</a>
         </div>
       </form>
+
+      <!-- Display submitted data -->
+      <?php if ($submitted) : ?>
+        <div class="mt-6 p-4 border rounded bg-gray-200">
+          <h2 class="text-lg font-semibold">Submitted Job Listing:</h2>
+          <p><strong>Title:</strong> <?= $title ?></p>
+          <p><strong>Body:</strong> <?= $body ?></p>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </body>

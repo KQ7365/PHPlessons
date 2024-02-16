@@ -44,15 +44,23 @@ $post = $stmt->fetch();
   </header>
   <div class="container mx-auto p-4 mt-4">
     <div class="md my-4">
-      <div class="rounded-lg shadow-md">
+      <div class="rounded-lg shadow-md mb-5">
         <div class="p-4">
           <h2 class="text-xl font-semibold"><?= $post['title']; ?></h2>
           <p class="text-gray-700 text-lg mt-2 mb-5"><?= $post['body']; ?></p>
           <a href="index.php">Go Back</a>
         </div>
       </div>
+      <!-- Delete Form (PHP does not have a delete method, se we essentially have to trick it) -->
+      <form action="delete.php" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="id" value="<?= $post['id'] ?>">
+        <button type="submit" name="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none"> 
+          DELETE
+        </button>
+    </form>
     </div>
   </div>
 </body>
 
-</html>
+</html>›
